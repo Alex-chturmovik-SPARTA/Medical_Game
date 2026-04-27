@@ -84,7 +84,7 @@ class Obstacle(pygame.sprite.Sprite):
     def __init__(self, x, y, w, h):
         super().__init__()
         self.image = pygame.Surface((w, h), pygame.SRCALPHA)
-        self.image.fill((255, 0, 0, 100)) # Раскомментировать в случае ЧП
+        #self.image.fill((255, 0, 0, 100)) # Раскомментировать в случае ЧП
         self.rect = self.image.get_rect(center=(x, y))
 
 class FinishZone(pygame.sprite.Sprite):
@@ -95,14 +95,14 @@ class FinishZone(pygame.sprite.Sprite):
         self.image.fill((0, 255, 0, 100))
         self.rect = self.image.get_rect(center=(x, y))
 
-# --- Инициализация объектов ---
+# Инициализация объектов
 all_sprites = pygame.sprite.Group()
 mobs = pygame.sprite.Group()
 obstacles = pygame.sprite.Group()
 
 finish_group = pygame.sprite.Group()
 
-# Допустим, финиш вверху экрана (X, Y, ширина, высота)
+
 finish_line = FinishZone(852.5, 310, 210, 390)
 all_sprites.add(finish_line)
 finish_group.add(finish_line)
@@ -122,7 +122,7 @@ for pos in mob_positions:
     all_sprites.add(m)
     mobs.add(m)
 
-# Создаем ограничение для клумбы в центре (координаты X, Y, ширина, высота)
+#ограничение для клумбы в центре (координаты X, Y, ширина, высота)
 flower_bed = Obstacle(748, 610, 890, 210)
 all_sprites.add(flower_bed)
 obstacles.add(flower_bed)
@@ -137,7 +137,7 @@ while running:
 
     all_sprites.update()
 
-    # Проверка столкновений (и с машинами, и с клумбой)
+    # Проверка столкновений 
     car_hits = pygame.sprite.spritecollide(player, mobs, False)
     flower_hits = pygame.sprite.spritecollide(player, obstacles, False)
 
@@ -155,7 +155,6 @@ while running:
     won = pygame.sprite.spritecollide(player, finish_group, False)
     if won:
         print("УРОВЕНЬ ПРОЙДЕН!")
-        # Здесь можно вывести текст на экран или просто закрыть игру
         running = False
 
         # Рендеринг
